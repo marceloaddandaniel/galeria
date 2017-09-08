@@ -1,14 +1,10 @@
 package com.apps.eduardo.galeria.view.activities
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.apps.eduardo.galeria.R
 import com.bumptech.glide.Glide
-import com.github.piasy.biv.BigImageViewer
-import com.github.piasy.biv.loader.glide.GlideImageLoader
 import kotlinx.android.synthetic.main.activity_view_image.*
-import java.io.File
 
 
 class ViewImageActivity : AppCompatActivity() {
@@ -23,7 +19,12 @@ class ViewImageActivity : AppCompatActivity() {
         val imagePath = intent.extras.getString(IMAGE_PATH_EXTRA);
 
         if (imagePath != null) {
-            image.showImage(Uri.fromFile(File(imagePath)));
+            Glide.with(this)
+                    .load(imagePath)
+                    .error(R.mipmap.ic_launcher_rounded)
+                    .fitCenter()
+                    .into(image)
         }
+
     }
 }

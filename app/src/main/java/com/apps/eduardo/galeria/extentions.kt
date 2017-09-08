@@ -10,7 +10,7 @@ import java.util.*
  */
 
 fun File.isImage(): Boolean{
-    var validName = !this?.name.startsWith(".") && this.isFile();
+    var validName = !this.name.startsWith(".") && this.isFile();
 
     return validName;
 }

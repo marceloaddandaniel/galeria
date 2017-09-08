@@ -24,7 +24,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.apps.eduardo.galeria.view.activities.ViewImageActivity" />
+        <activity
+            android:name="com.apps.eduardo.galeria.view.activities.ViewImageActivity"
+            android:theme="@style/AppTheme.FullScreen.Dark" />
 
         <activity android:name="com.apps.eduardo.galeria.view.activities.SplashActivity">
 
