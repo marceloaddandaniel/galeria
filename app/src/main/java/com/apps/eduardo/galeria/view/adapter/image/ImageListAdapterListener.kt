@@ -5,7 +5,7 @@ package com.apps.eduardo.galeria.view.adapter.image
  */
 interface ImageListAdapterListener {
 
-    fun onImageClick(image : String)
+    fun onImageClick(image : String,index: Int)
 
-    fun onImageLongClick(image: String)
+    fun onImageLongClick(image: String,index: Int)
 }

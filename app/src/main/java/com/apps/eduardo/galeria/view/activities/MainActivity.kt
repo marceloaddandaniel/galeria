@@ -10,14 +10,18 @@ import com.apps.eduardo.galeria.view.adapter.image.ImageListAdapter
 import com.apps.eduardo.galeria.Images
 import com.apps.eduardo.galeria.R
 import com.apps.eduardo.galeria.view.adapter.image.ImageListAdapterListener
+import com.apps.eduardo.galeria.view.show_image.ViewImageActivity
+import java.util.*
 import kotlinx.android.synthetic.main.activity_main.image_list as imageList
 
 class MainActivity : AppCompatActivity(),ImageListAdapterListener {
 
+    var items :List<String> = emptyList();
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val items = getImages();
+        items = getImages();
         var adapter = ImageListAdapter(this, items);
         adapter.imageIActionListener = this
         imageList.adapter =adapter
@@ -27,13 +31,14 @@ class MainActivity : AppCompatActivity(),ImageListAdapterListener {
     }
 
 
-    override fun onImageClick(image: String) {
-        var intent = Intent(this,ViewImageActivity::class.java);
-        intent.putExtra(ViewImageActivity.IMAGE_PATH_EXTRA,image);
+    override fun onImageClick(image: String,index: Int) {
+        var intent = Intent(this, ViewImageActivity::class.java)
+//        intent.putExtra(ViewImageActivity.IMAGE_LIST_PATH_EXTRA,)
+        intent.putExtra(ViewImageActivity.IMAGE_POSITION_PATH_EXTRA,index)
         startActivity(intent)
     }
 
-    override fun onImageLongClick(image: String) {
+    override fun onImageLongClick(image: String,index: Int) {
 
     }
 

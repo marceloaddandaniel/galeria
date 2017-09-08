@@ -50,11 +50,11 @@ class ImageListAdapter(val context: Context, var items: List<String>) : Recycler
         holder?.imageDate?.text = imageFile.lastModifiedDate();
 
         holder?.image?.setOnClickListener {
-            imageIActionListener?.onImageClick(imagePath)
+            imageIActionListener?.onImageClick(imagePath,position)
         }
         holder?.image?.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(v: View?): Boolean {
-                imageIActionListener?.onImageLongClick(imagePath)
+                imageIActionListener?.onImageLongClick(imagePath,position)
                 return true;
             }
         })

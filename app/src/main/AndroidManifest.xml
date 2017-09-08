@@ -25,7 +25,7 @@
         </activity>
 
         <activity
-            android:name="com.apps.eduardo.galeria.view.activities.ViewImageActivity"
+            android:name="com.apps.eduardo.galeria.view.show_image.ViewImageActivity"
             android:theme="@style/AppTheme.FullScreen.Dark" />
 
         <activity android:name="com.apps.eduardo.galeria.view.activities.SplashActivity">
