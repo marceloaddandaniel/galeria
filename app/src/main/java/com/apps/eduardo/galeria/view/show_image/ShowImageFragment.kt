@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.apps.eduardo.galeria.Images
 import com.apps.eduardo.galeria.R
+import com.apps.eduardo.galeria.entities.MediaFile
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_view_image.*
 
@@ -18,10 +19,11 @@ class ShowImageFragment : Fragment() {
 
     companion object {
         val IMAGE_PATH_KEY = "IMAGE_PATH"
-        fun newInstance(imagePath:String): ShowImageFragment{
+
+        fun newInstance(imagePath:MediaFile): ShowImageFragment{
             val fragment = ShowImageFragment()
             fragment.arguments = Bundle();
-            fragment.arguments .putString("IMAGE_PATH",imagePath);
+            fragment.arguments .putSerializable(IMAGE_PATH_KEY,imagePath);
             return fragment;
         }
     }
@@ -33,10 +35,10 @@ class ShowImageFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val imagePath = arguments.getString(IMAGE_PATH_KEY)
-        if (imagePath != null) {
+        val mediaFile= arguments.getSerializable(IMAGE_PATH_KEY) as MediaFile
+        if (mediaFile != null) {
             Glide.with(this)
-                    .load(imagePath)
+                    .load(mediaFile.asFile())
                     .error(R.mipmap.ic_launcher_rounded)
                     .fitCenter()
                     .into(image)

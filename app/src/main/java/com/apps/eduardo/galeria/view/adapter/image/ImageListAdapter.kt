@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.apps.eduardo.galeria.R
+import com.apps.eduardo.galeria.entities.Directory
 import com.apps.eduardo.galeria.lastModifiedDate
 import com.bumptech.glide.Glide
 import java.io.File
@@ -15,7 +16,7 @@ import java.io.File
 /**
  * Created by Eduardo on 02/09/2017.
  */
-class ImageListAdapter(val context: Context, var items: List<String>) : RecyclerView.Adapter<ImageListAdapter.ViewHolder>() {
+class ImageListAdapter(private val context: Context,private var directory : Directory ) : RecyclerView.Adapter<ImageListAdapter.ViewHolder>() {
 
     var i = 0;
     var imageIActionListener: ImageListAdapterListener? = null
@@ -38,8 +39,8 @@ class ImageListAdapter(val context: Context, var items: List<String>) : Recycler
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val imagePath = items.get(position);
-        val imageFile = File(imagePath);
+        val mediaFile = directory.getFile(position);
+        val imageFile = mediaFile.asFile();
 
         Glide.with(context)
                 .load(imageFile)
@@ -50,11 +51,11 @@ class ImageListAdapter(val context: Context, var items: List<String>) : Recycler
         holder?.imageDate?.text = imageFile.lastModifiedDate();
 
         holder?.image?.setOnClickListener {
-            imageIActionListener?.onImageClick(imagePath,position)
+            imageIActionListener?.onImageClick(mediaFile,position)
         }
         holder?.image?.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(v: View?): Boolean {
-                imageIActionListener?.onImageLongClick(imagePath,position)
+                imageIActionListener?.onImageLongClick(mediaFile,position)
                 return true;
             }
         })
@@ -63,7 +64,7 @@ class ImageListAdapter(val context: Context, var items: List<String>) : Recycler
     }
 
     override fun getItemCount(): Int {
-        return items.size;
+        return directory.getDirectoryFilesCount()
     }
 
 }

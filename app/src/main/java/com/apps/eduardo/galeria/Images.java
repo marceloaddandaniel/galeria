@@ -23,7 +23,7 @@ import java.util.TreeSet;
 
 public class Images {
 
-    public static List<String> getImagesFromCamera(Activity activity){
+    public static List<String> getImagesFromCamera(){
 //        String cameraDirPath = "/storage/emulated/0/DCIM/Camera/";
 //        String cameraDirPath = "/storage/36A7-1EE3/DCIM/Camera/";
         String cameraDirPath = "/storage/emulated/0/WhatsApp/Media/WhatsApp Images";
