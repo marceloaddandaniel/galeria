@@ -1,13 +1,10 @@
 package com.apps.eduardo.galeria
 
-import android.content.Context
 import android.util.Log
 import com.apps.eduardo.galeria.entities.Directory
 import com.apps.eduardo.galeria.entities.FileType
 import com.apps.eduardo.galeria.entities.MediaFile
 import java.io.File
-import java.security.AccessControlContext
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,10 +25,26 @@ fun File.lastModifiedDate(): String{
 
 
 fun getImages():List<Directory> {
-    var imagesList = mutableListOf<MediaFile>();
-    for( image in Images.getImagesFromCamera()){
-        imagesList.add(MediaFile(image, FileType.IMAGE));
-        Log.d("image file",image)
+    val directories = arrayOf(
+            "/storage/emulated/0/WhatsApp/Media/WhatsApp Images",
+            "/storage/emulated/0/Pictures/Messenger/",
+            "/storage/emulated/0/Pictures/Screenshots/",
+            "/storage/emulated/0/DCIM/Camera/",
+            "/storage/emulated/0/DCIM/Facebook/")
+    val directoryList = mutableListOf<Directory>()
+
+    for(directoryPath in directories) {
+        try {
+            var imagesList = mutableListOf<MediaFile>();
+            for (image in Images.getImagesFromCamera(directoryPath)) {
+                imagesList.add(MediaFile(image, FileType.IMAGE));
+                Log.d("cover file", image)
+            }
+            val directory = Directory(directoryPath, imagesList);
+            directoryList.add(directory)
+        }catch (exception : Exception){
+            exception.printStackTrace()
+        }
     }
-    return listOf(Directory("Whatapp Images",imagesList));
+    return directoryList;
 }

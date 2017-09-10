@@ -1,4 +1,4 @@
-package com.apps.eduardo.galeria.view.show_image
+package com.apps.eduardo.galeria.view.adapter.show_image
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

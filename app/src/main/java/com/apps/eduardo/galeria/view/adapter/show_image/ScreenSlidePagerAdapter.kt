@@ -1,4 +1,4 @@
-package com.apps.eduardo.galeria.view.show_image
+package com.apps.eduardo.galeria.view.adapter.show_image
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

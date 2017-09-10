@@ -9,11 +9,9 @@ import android.webkit.MimeTypeMap;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -23,19 +21,15 @@ import java.util.TreeSet;
 
 public class Images {
 
-    public static List<String> getImagesFromCamera(){
-//        String cameraDirPath = "/storage/emulated/0/DCIM/Camera/";
-//        String cameraDirPath = "/storage/36A7-1EE3/DCIM/Camera/";
-        String cameraDirPath = "/storage/emulated/0/WhatsApp/Media/WhatsApp Images";
-
-
-        File cameraDirectory = new File(cameraDirPath);
+    public static List<String> getImagesFromCamera(String cameraDirPath) {
         List<String> photos = new ArrayList<>();
+        File cameraDirectory = new File(cameraDirPath);
+
         File[] photoFiles = cameraDirectory.listFiles();
-        for (File file : photoFiles){
-            if(file.isFile() && !file.getName().startsWith(".") && getMimeType(file.getAbsolutePath()).startsWith("image")){
+        for (File file : photoFiles) {
+            if (file.isFile() && !file.getName().startsWith(".") && getMimeType(file.getAbsolutePath()).startsWith("image")) {
                 photos.add(file.getAbsolutePath());
-                Log.d("fotos",file.getAbsolutePath());
+                Log.d("fotos", file.getAbsolutePath());
             }
         }
         Collections.sort(photos, new Comparator<String>() {
@@ -43,11 +37,12 @@ public class Images {
             public int compare(String o1, String o2) {
                 File f1 = new File(o1);
                 File f2 = new File(o2);
-                return (int)(f2.lastModified() -f1.lastModified());
+                return (int) (f2.lastModified() - f1.lastModified());
             }
         });
         return photos;
     }
+
     public static ArrayList<String> getFilePaths(Activity activity) {
 
         Uri u = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -90,7 +85,7 @@ public class Images {
 
                     }
                     String mimeType = getMimeType(imagePath.getAbsolutePath());
-                    if (mimeType!=null && mimeType.startsWith("image")){
+                    if (mimeType != null && mimeType.startsWith("image")) {
                         String path = imagePath.getAbsolutePath();
                         resultIAV.add(path);
                     }
@@ -103,7 +98,6 @@ public class Images {
         }
         return resultIAV;
     }
-
 
 
     public static String getMimeType(String url) {

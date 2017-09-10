@@ -1,12 +1,10 @@
-package com.apps.eduardo.galeria.view.show_image
+package com.apps.eduardo.galeria.view.adapter.show_image
 
 import android.support.v4.app.Fragment
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.apps.eduardo.galeria.Images
 import com.apps.eduardo.galeria.R
 import com.apps.eduardo.galeria.entities.MediaFile
 import com.bumptech.glide.Glide
