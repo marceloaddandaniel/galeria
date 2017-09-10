@@ -3,6 +3,7 @@ package com.apps.eduardo.galeria;
 import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -20,6 +21,12 @@ import java.util.TreeSet;
  */
 
 public class Images {
+
+//
+//    public static List<String> getDirectoriesWithMedia(){
+////        Environment.
+//    }
+
 
     public static List<String> getImagesFromCamera(String cameraDirPath) {
         List<String> photos = new ArrayList<>();
