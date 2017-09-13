@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, ListDirectoriesActivity::class.java)
         intent.putExtra(ListDirectoriesActivity.EXTRA_DIRECTORY_LIST, list.toTypedArray())
         startActivity(intent)
+        finish()
     }
 
 

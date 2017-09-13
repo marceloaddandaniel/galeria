@@ -1,6 +1,7 @@
 package com.apps.eduardo.galeria
 
 import android.util.Log
+import com.apps.eduardo.core.services.FilesService
 import com.apps.eduardo.galeria.entities.Directory
 import com.apps.eduardo.galeria.entities.FileType
 import com.apps.eduardo.galeria.entities.MediaFile
@@ -24,27 +25,24 @@ fun File.lastModifiedDate(): String{
 }
 
 
+//TODO busca temporária, depois organizar isso de acordo com uma arquitetura minimanente aceitável
 fun getImages():List<Directory> {
-    val directories = arrayOf(
-            "/storage/emulated/0/WhatsApp/Media/WhatsApp Images",
-            "/storage/emulated/0/Pictures/Messenger/",
-            "/storage/emulated/0/Pictures/Screenshots/",
-            "/storage/emulated/0/DCIM/Camera/",
-            "/storage/emulated/0/DCIM/Facebook/")
-    val directoryList = mutableListOf<Directory>()
 
-    for(directoryPath in directories) {
-        try {
-            var imagesList = mutableListOf<MediaFile>();
-            for (image in Images.getImagesFromCamera(directoryPath)) {
-                imagesList.add(MediaFile(image, FileType.IMAGE));
-                Log.d("cover file", image)
-            }
-            val directory = Directory(directoryPath, imagesList);
-            directoryList.add(directory)
-        }catch (exception : Exception){
-            exception.printStackTrace()
+    val directoriesAndFiles = FilesService().getAllDirectoriesWithMedia("/storage/emulated/0/")
+    val directoryList = mutableListOf<Directory>()
+    for(directory in directoriesAndFiles){
+        val directoryFile = directory.key;
+        val mediaFiles = directory.value;
+        var presentableImageList = mutableListOf<MediaFile>();
+        for (image in mediaFiles) {
+            presentableImageList.add(MediaFile(image.absolutePath, FileType.IMAGE));
         }
+        presentableImageList.sortByDescending { it.asFile().lastModified() }
+
+        val presentableDirectory = Directory(directoryFile.absolutePath, presentableImageList);
+        directoryList.add(presentableDirectory)
     }
+
+    directoryList.sortBy { it.name }
     return directoryList;
 }
